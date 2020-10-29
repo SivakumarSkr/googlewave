@@ -37,6 +37,7 @@ class Wave:
         self.color_list = [BLUE, RED, YELLOW, BLUE, GREEN, RED]
         self.max_height = self.init_wave_height + self.wave_height_limit
         self.min_height = self.init_wave_height - self.wave_height_limit
+        self.height_diff = 4
         self.init_square()
         while not self.end:
             self.loop()
@@ -45,16 +46,24 @@ class Wave:
         squares = []
         for i in range(6):
             left_cord = self.wave_start + (i * self.rect_gap)
-            rect = Rect(left_cord, self.init_wave_height + (i * 4), self.rect_width, self.rect_height)
+            rect = Rect(left_cord, self.init_wave_height + (i * self.height_diff), self.rect_width, self.rect_height)
             rectangle_obj = Rectangle(rect, 1, self.color_list[i])
             self.rect_list.append(rectangle_obj)
             
     def loop(self):
+        self.event_loop()
         self.screen.fill(WHITE)
         self.draw_wave()
         pygame.display.update()
         self.clock.tick(60)
     
+    @staticmethod
+    def event_loop():
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                pygame.quit()
+                quit()
+
     def draw_wave(self):
         for wave in self.rect_list:
             self.change_direction(wave)
@@ -69,11 +78,9 @@ class Wave:
 
     def change_speed(self, wave):
         if wave.direction == 1:
-                wave.rect.y += self.speed
+            wave.rect.y += self.speed
         else:
             wave.rect.y -= self.speed
     
 while True:
     game_obj = Wave()
-    if game_obj.quit:
-        break
