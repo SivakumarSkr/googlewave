@@ -21,7 +21,6 @@ class Wave:
         self.clock = pygame.time.Clock()
         self.height = 600
         self.width = 600
-        self.wave_color = BLUE
         self.screen_res = [self.width, self.height]
         self.screen = pygame.display.set_mode(self.screen_res, pygame.HWSURFACE, 32)
         self.screen.fill(WHITE)
