@@ -82,5 +82,4 @@ class Wave:
         else:
             wave.rect.y -= self.speed
     
-while True:
-    game_obj = Wave()
+game_obj = Wave()
